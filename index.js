@@ -6,7 +6,7 @@
 //
 // Set your API key as an environment variable before starting the
 // server (see README.md). The key is never sent to the browser.
-
+const path = require('path');
 const express = require("express");
 const cors = require("cors");
 
@@ -95,6 +95,11 @@ app.post("/api/classify", async (req, res) => {
   }
 });
 
+
+app.use(express.static(__dirname));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
 app.listen(PORT, () => {
   console.log(`Backend server running on http://localhost:${PORT}`);
 });
